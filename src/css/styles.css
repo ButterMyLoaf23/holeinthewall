@@ -1,0 +1,52 @@
+:root {
+	--ink: #272521; --muted: #827c70; --paper: #f7f4ee; --cream: #ebe5d8;
+	--orange: #e95e3b; --orange-dark: #c9452c; --sage: #9eaa85; --line: #ddd7cb;
+	--shadow: 0 20px 50px rgba(47, 43, 34, 0.12);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: "DM Sans", sans-serif; }
+a { color: inherit; } button, input { font: inherit; } button { cursor: pointer; }
+.site-header { align-items: center; border-bottom: 1px solid rgba(39, 37, 33, .1); display: flex; height: 76px; justify-content: space-between; padding: 0 clamp(24px, 5vw, 76px); }
+.brand { align-items: center; display: flex; font-size: 20px; font-weight: 700; gap: 10px; letter-spacing: -.7px; text-decoration: none; }
+.brand-mark { align-items: center; background: var(--orange); border-radius: 50%; color: white; display: inline-flex; font-size: 11px; height: 33px; justify-content: center; letter-spacing: 0; transform: rotate(-8deg); width: 33px; }
+.brand-accent { color: var(--orange); } .header-nav { display: flex; gap: 31px; margin-left: 13%; }
+.header-nav a { color: var(--muted); font-size: 13px; text-decoration: none; } .header-nav a:first-child { color: var(--ink); font-weight: 700; }
+.favorite-count { background: var(--cream); border-radius: 10px; font-size: 10px; margin-left: 3px; padding: 2px 6px; }
+.share-button { background: transparent; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); font-size: 12px; padding: 9px 14px; }
+.share-button span { color: var(--orange); font-size: 17px; vertical-align: -1px; }
+.intro { align-items: end; display: flex; justify-content: space-between; margin: 0 auto; max-width: 1280px; padding: 79px 32px 57px; }
+.eyebrow { color: var(--orange); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+h1, h2, p { margin-top: 0; } h1 { font-family: Fraunces, Georgia, serif; font-size: clamp(43px, 5.8vw, 78px); letter-spacing: -3.5px; line-height: .96; margin: 15px 0 22px; }
+h1 em { color: var(--orange); font-style: normal; } .intro-copy { color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 400px; }
+.intro-note { align-items: center; color: var(--muted); display: flex; font-size: 12px; gap: 9px; padding-bottom: 8px; } .intro-note strong { color: var(--ink); }
+.pulse-dot { background: var(--orange); border: 4px solid #f5cec4; border-radius: 50%; height: 14px; width: 14px; }
+.finder-shell { margin: 0 auto; max-width: 1280px; padding: 0 32px 62px; }
+.finder-controls { align-items: center; display: flex; gap: 25px; padding: 0 0 24px; }
+.search-field { align-items: center; background: white; border: 1px solid var(--line); border-radius: 5px; display: flex; flex: 1; gap: 11px; max-width: 470px; padding: 13px 16px; }
+.search-field span { color: var(--orange); font-size: 22px; transform: rotate(-20deg); } .search-field input { border: 0; color: var(--ink); font-size: 12px; outline: 0; width: 100%; }
+.search-field input::placeholder { color: #aaa49a; } .filter-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-button { background: transparent; border: 1px solid var(--line); border-radius: 20px; color: var(--muted); font-size: 11px; padding: 9px 14px; transition: .2s ease; }
+.filter-button:hover, .filter-button.is-active { background: var(--ink); border-color: var(--ink); color: white; }
+.finder-grid { background: white; box-shadow: var(--shadow); display: grid; grid-template-columns: minmax(340px, .9fr) 1.1fr; min-height: 585px; }
+.restaurant-panel { border-right: 1px solid var(--line); padding: 30px 29px 18px; } .results-header { align-items: end; display: flex; justify-content: space-between; margin-bottom: 17px; }
+h2 { font-family: Fraunces, Georgia, serif; font-size: 25px; letter-spacing: -.8px; margin: 7px 0 0; } .sort-button { background: transparent; border: 0; color: var(--muted); font-size: 11px; padding: 0; }
+.sort-button span { color: var(--orange); font-size: 15px; } .restaurant-list { display: grid; gap: 5px; }
+.restaurant-card { align-items: center; border-top: 1px solid var(--line); display: flex; gap: 14px; padding: 16px 7px; transition: background .2s, transform .2s; }
+.restaurant-card:hover { background: #fcfaf5; transform: translateX(3px); } .restaurant-card.is-selected { background: #f9eee9; border-left: 3px solid var(--orange); margin-left: -7px; padding-left: 11px; }
+.restaurant-image { align-items: center; background: var(--sage); border-radius: 3px; color: white; display: flex; flex-shrink: 0; font-family: Fraunces, serif; font-size: 23px; height: 66px; justify-content: center; overflow: hidden; position: relative; width: 78px; }
+.restaurant-image::after { border: 1px solid rgba(255,255,255,.4); border-radius: 50%; content: ""; height: 48px; position: absolute; transform: rotate(25deg); width: 86px; }
+.restaurant-card:nth-child(2) .restaurant-image { background: #d98d61; } .restaurant-card:nth-child(3) .restaurant-image { background: #8d9a70; } .restaurant-card:nth-child(4) .restaurant-image { background: #b57a61; } .restaurant-card:nth-child(5) .restaurant-image { background: #cd9f5e; } .restaurant-card:nth-child(6) .restaurant-image { background: #879c9a; }
+.card-info { min-width: 0; } .card-info h3 { font-size: 14px; margin: 0 0 5px; } .card-meta { color: var(--muted); font-size: 11px; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-rating { align-items: center; display: flex; font-size: 11px; gap: 5px; margin-top: 8px; } .star { color: var(--orange); font-size: 13px; } .distance { color: var(--muted); margin-left: auto; white-space: nowrap; }
+.favorite-button { background: transparent; border: 0; color: #b2aca0; font-size: 20px; line-height: 1; padding: 3px; } .favorite-button.is-favorite { color: var(--orange); }
+.empty-state { color: var(--muted); font-size: 13px; padding: 34px 5px; text-align: center; }
+.map-panel { min-height: 585px; position: relative; } #map { height: 100%; min-height: 585px; }
+.leaflet-container { background: #dce4d9; font-family: "DM Sans", sans-serif; } .leaflet-control-zoom { border: 0 !important; box-shadow: 0 2px 8px rgba(39,37,33,.15) !important; } .leaflet-control-zoom a { color: var(--ink) !important; }
+.custom-marker { align-items: center; background: var(--orange); border: 3px solid white; border-radius: 50% 50% 50% 0; box-shadow: 0 3px 9px rgba(56,35,25,.28); color: white; display: flex; font-size: 11px; height: 30px; justify-content: center; transform: rotate(-45deg); width: 30px; }
+.custom-marker span { transform: rotate(45deg); } .map-legend { background: rgba(255,255,255,.93); bottom: 19px; color: var(--muted); font-size: 10px; left: 19px; padding: 10px 12px; position: absolute; z-index: 500; }
+.legend-dot { background: var(--orange); border-radius: 50%; display: inline-block; height: 7px; margin-right: 5px; width: 7px; } .legend-divider { border-left: 1px solid var(--line); margin: 0 8px; }
+.locate-button { background: white; border: 0; bottom: 19px; box-shadow: 0 2px 8px rgba(39,37,33,.15); color: var(--ink); font-size: 11px; padding: 10px 12px; position: absolute; right: 19px; z-index: 500; } .locate-button span { color: var(--orange); font-size: 15px; }
+footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; font-size: 11px; justify-content: space-between; margin: 0 auto; max-width: 1280px; padding: 24px 32px 38px; } footer a { color: var(--orange); text-decoration: none; }
+@media (max-width: 850px) { .header-nav { margin-left: auto; margin-right: 20px; } .intro { align-items: start; flex-direction: column; gap: 25px; padding-top: 58px; } .finder-controls { align-items: stretch; flex-direction: column; gap: 14px; } .search-field { max-width: none; } .finder-grid { grid-template-columns: 1fr; } .restaurant-panel { border-bottom: 1px solid var(--line); border-right: 0; } .map-panel, #map { min-height: 390px; } }
+@media (max-width: 520px) { .site-header { height: 66px; padding: 0 18px; } .header-nav { display: none; } .share-button { padding: 8px 10px; } .intro, .finder-shell { padding-left: 18px; padding-right: 18px; } h1 { letter-spacing: -2px; } .intro-note { font-size: 11px; } .filter-row { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px; } .filter-button { flex-shrink: 0; } .restaurant-panel { padding: 24px 18px 12px; } footer { flex-direction: column; gap: 10px; padding-left: 18px; padding-right: 18px; } .map-legend { left: 10px; } .locate-button { bottom: 10px; right: 10px; } }

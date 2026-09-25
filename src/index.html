@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Find your next favorite restaurant in Rexburg, Idaho.">
+	<title>Rexburg Bites | Local restaurant finder</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="#top" aria-label="Rexburg Bites home"><span class="brand-mark" aria-hidden="true">RB</span><span>rexburg<span class="brand-accent">bites</span></span></a>
+		<nav class="header-nav" aria-label="Main navigation"><a href="#explore">Explore</a><a href="#favorites">Favorites <span class="favorite-count">0</span></a></nav>
+		<button class="share-button" type="button" id="shareButton" title="Share this restaurant finder"><span aria-hidden="true">&#8599;</span> Share</button>
+	</header>
+
+	<main id="top">
+		<section class="intro" id="explore">
+			<div><p class="eyebrow">Your local table awaits</p><h1>Good food is<br><em>closer than you think.</em></h1><p class="intro-copy">Find the spots Rexburg locals keep coming back to, from a quick coffee to a proper night out.</p></div>
+			<div class="intro-note"><span class="pulse-dot"></span><strong>Rexburg, ID</strong><span>28 places nearby</span></div>
+		</section>
+
+		<section class="finder-shell" aria-label="Restaurant finder">
+			<div class="finder-controls">
+				<label class="search-field" for="searchInput"><span aria-hidden="true">&#9906;</span><input id="searchInput" type="search" placeholder="Search restaurants, dishes, or neighborhoods" autocomplete="off"></label>
+				<div class="filter-row" role="group" aria-label="Filter restaurants by cuisine"><button class="filter-button is-active" type="button" data-filter="all">All spots</button><button class="filter-button" type="button" data-filter="coffee">Coffee</button><button class="filter-button" type="button" data-filter="mexican">Mexican</button><button class="filter-button" type="button" data-filter="american">American</button><button class="filter-button" type="button" data-filter="asian">Asian</button></div>
+			</div>
+
+			<div class="finder-grid">
+				<aside class="restaurant-panel" aria-label="Restaurant results">
+					<div class="results-header"><div><span class="eyebrow">Curated for you</span><h2><span id="resultCount">6</span> places to try</h2></div><button class="sort-button" id="sortButton" type="button">Top rated <span aria-hidden="true">&#8595;</span></button></div>
+					<div class="restaurant-list" id="restaurantList"></div><p class="empty-state" id="emptyState" hidden>No spots match that search yet. Try another craving.</p>
+				</aside>
+				<div class="map-panel"><div id="map" aria-label="Map of restaurants in Rexburg"></div><div class="map-legend"><span class="legend-dot"></span> Featured local spots <span class="legend-divider"></span> <span>Updated today</span></div><button class="locate-button" id="locateButton" type="button"><span aria-hidden="true">&#8982;</span> Re-center map</button></div>
+			</div>
+		</section>
+	</main>
+
+	<footer id="favorites"><span>Made for hungry days in Rexburg.</span><span>Have a spot we missed? <a href="mailto:hello@rexburgbites.example">Tell us about it</a></span></footer>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+	<script src="js/leaflet.js"></script>
+</body>
+</html>
