@@ -1,0 +1,199 @@
+[debug] [2026-10-07T20:12:47.886Z] ----------------------------------------------------------------------
+[debug] [2026-10-07T20:12:47.890Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:list
+[debug] [2026-10-07T20:12:47.890Z] CLI Version:   15.32.1
+[debug] [2026-10-07T20:12:47.891Z] Platform:      win32
+[debug] [2026-10-07T20:12:47.892Z] Node Version:  v24.13.0
+[debug] [2026-10-07T20:12:47.892Z] Detected Agent: codex_cli
+[debug] [2026-10-07T20:12:47.893Z] Time:          Wed Oct 07 2026 13:12:47 GMT-0700 (Mountain Standard Time)
+[debug] [2026-10-07T20:12:47.893Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-10-07T20:12:47.905Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-10-07T20:12:47.935Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-10-07T20:12:47.936Z] > authorizing via signed-in user (bostonwyatt1@gmail.com)
+[debug] [2026-10-07T20:12:47.938Z] Checked if tokens are valid: false, expires at: 1791237193226
+[debug] [2026-10-07T20:12:47.938Z] Checked if tokens are valid: false, expires at: 1791237193226
+[debug] [2026-10-07T20:12:47.938Z] > refreshing access token with scopes: []
+[debug] [2026-10-07T20:12:47.940Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-10-07T20:12:47.940Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T20:12:47.946Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET","dispatcher":{"_events":{},"_eventsCount":0}}): Error: connect ECONNREFUSED 127.0.0.1:9
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-10-07T20:12:47.947Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-10-07T20:12:47.947Z] *** [apiv2] error from fetch(https://www.googleapis.com/oauth2/v3/token, {"headers":{},"method":"POST","dispatcher":{"_events":{},"_eventsCount":0},"body":{"type":"Buffer","data":[45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,13,10,67,111,110,116,101,110,116,45,68,105,115,112,111,115,105,116,105,111,110,58,32,102,111,114,109,45,100,97,116,97,59,32,110,97,109,101,61,34,114,101,102,114,101,115,104,95,116,111,107,101,110,34,13,10,13,10,49,47,47,48,54,121,77,86,70,112,68,116,53,69,110,79,67,103,89,73,65,82,65,65,71,65,89,83,78,119,70,45,76,57,73,114,120,103,88,90,53,52,70,79,79,106,121,114,75,101,116,110,107,69,67,54,106,52,81,101,79,48,111,53,53,120,99,85,48,67,69,100,79,51,119,115,72,119,107,119,75,97,119,103,120,103,105,55,69,109,104,76,113,120,106,119,112,100,120,97,81,97,69,13,10,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,13,10,67,111,110,116,101,110,116,45,68,105,115,112,111,115,105,116,105,111,110,58,32,102,111,114,109,45,100,97,116,97,59,32,110,97,109,101,61,34,99,108,105,101,110,116,95,105,100,34,13,10,13,10,53,54,51,53,56,52,51,51,53,56,54,57,45,102,103,114,104,103,109,100,52,55,98,113,110,101,107,105,106,53,105,56,98,53,112,114,48,51,104,111,56,52,57,101,54,46,97,112,112,115,46,103,111,111,103,108,101,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,13,10,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,13,10,67,111,110,116,101,110,116,45,68,105,115,112,111,115,105,116,105,111,110,58,32,102,111,114,109,45,100,97,116,97,59,32,110,97,109,101,61,34,99,108,105,101,110,116,95,115,101,99,114,101,116,34,13,10,13,10,106,57,105,86,90,102,83,56,107,107,67,69,70,85,80,97,65,101,74,86,48,115,65,105,13,10,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,13,10,67,111,110,116,101,110,116,45,68,105,115,112,111,115,105,116,105,111,110,58,32,102,111,114,109,45,100,97,116,97,59,32,110,97,109,101,61,34,103,114,97,110,116,95,116,121,112,101,34,13,10,13,10,114,101,102,114,101,115,104,95,116,111,107,101,110,13,10,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,13,10,67,111,110,116,101,110,116,45,68,105,115,112,111,115,105,116,105,111,110,58,32,102,111,114,109,45,100,97,116,97,59,32,110,97,109,101,61,34,115,99,111,112,101,34,13,10,13,10,13,10,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,55,54,54,57,51,50,54,50,55,99,50,55,98,55,51,98,48,97,49,100,102,52,99,49,45,45,13,10]}}): Error: connect ECONNREFUSED 127.0.0.1:9
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-10-07T20:12:47.948Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-10-07T20:12:47.949Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:178:12)
+    at refreshTokens (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:607:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async getAccessToken (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:53:18)
+    at async Client.addAuthHeader (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:209:21)
+    at async Client.request (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:156:34)
+    at async getProjectPage (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:301:17)
+    at async getFirebaseProjectPage (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:318:23)
+    at async listFirebaseProjects (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:347:29)
+    at async Command.actionFn (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\projects-list.js:51:20)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.
+[debug] [2026-10-07T20:12:48.230Z] Error: EPERM: operation not permitted, open 'C:\Users\bosto\.config\configstore\firebase-tools.json.1725609060'
+    at Object.openSync (node:fs:559:18)
+    at writeFile.writeFileSync [as sync] (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\write-file-atomic\index.js:205:13)
+    at set all (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\configstore\index.js:61:20)
+    at Configstore.delete (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\configstore\index.js:101:12)
+    at process.<anonymous> (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js:95:45)
+    at process.emit (node:events:520:35)
+    at process.exit (node:internal/process/per_thread:236:15)
+    at Timeout._onTimeout (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\errorOut.js:20:17)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-10-07T20:15:07.852Z] ----------------------------------------------------------------------
+[debug] [2026-10-07T20:15:07.858Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login --reauth
+[debug] [2026-10-07T20:15:07.859Z] CLI Version:   15.32.1
+[debug] [2026-10-07T20:15:07.859Z] Platform:      win32
+[debug] [2026-10-07T20:15:07.859Z] Node Version:  v24.13.0
+[debug] [2026-10-07T20:15:07.859Z] Detected Agent: codex_cli
+[debug] [2026-10-07T20:15:07.859Z] Time:          Wed Oct 07 2026 13:15:07 GMT-0700 (Mountain Standard Time)
+[debug] [2026-10-07T20:15:07.859Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-10-07T20:15:07.877Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-10-07T20:15:07.894Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-10-07T20:15:07.894Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"c011772b-224b-425a-83d4-ae2a24db2dc1"}
+[debug] [2026-10-07T20:15:07.903Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET","dispatcher":{"_events":{},"_eventsCount":0}}): Error: connect ECONNREFUSED 127.0.0.1:9
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-10-07T20:15:07.903Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-10-07T20:15:07.904Z] *** [apiv2] error from fetch(https://auth.firebase.tools/attest, {"headers":{},"method":"POST","dispatcher":{"_events":{},"_eventsCount":0},"body":"{\"session_id\":\"c011772b-224b-425a-83d4-ae2a24db2dc1\"}"}): Error: connect ECONNREFUSED 127.0.0.1:9
+[error] 
+[error] Error: Failed to start login: Failed to make request to https://auth.firebase.tools/attest
+[debug] [2026-10-07T20:15:08.199Z] Error: EPERM: operation not permitted, open 'C:\Users\bosto\.config\configstore\firebase-tools.json.4089779518'
+    at Object.openSync (node:fs:559:18)
+    at writeFile.writeFileSync [as sync] (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\write-file-atomic\index.js:205:13)
+    at set all (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\configstore\index.js:61:20)
+    at Configstore.delete (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\configstore\index.js:101:12)
+    at process.<anonymous> (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js:95:45)
+    at process.emit (node:events:520:35)
+    at process.exit (node:internal/process/per_thread:236:15)
+    at Timeout._onTimeout (C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\errorOut.js:20:17)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-10-07T20:16:59.296Z] ----------------------------------------------------------------------
+[debug] [2026-10-07T20:16:59.301Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bosto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting --project holeinthewall-13f6a
+[debug] [2026-10-07T20:16:59.301Z] CLI Version:   15.32.1
+[debug] [2026-10-07T20:16:59.301Z] Platform:      win32
+[debug] [2026-10-07T20:16:59.301Z] Node Version:  v24.13.0
+[debug] [2026-10-07T20:16:59.302Z] Detected Agent: codex_cli
+[debug] [2026-10-07T20:16:59.302Z] Time:          Wed Oct 07 2026 13:16:59 GMT-0700 (Mountain Standard Time)
+[debug] [2026-10-07T20:16:59.302Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-10-07T20:16:59.316Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-10-07T20:17:02.247Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-10-07T20:17:02.247Z] > authorizing via signed-in user (bostonwyatt1@gmail.com)
+[debug] [2026-10-07T20:17:02.248Z] [iam] checking project holeinthewall-13f6a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-10-07T20:17:02.249Z] Checked if tokens are valid: false, expires at: 1791237193226
+[debug] [2026-10-07T20:17:02.249Z] Checked if tokens are valid: false, expires at: 1791237193226
+[debug] [2026-10-07T20:17:02.249Z] > refreshing access token with scopes: []
+[debug] [2026-10-07T20:17:02.251Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-10-07T20:17:02.251Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T20:17:02.429Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-10-07T20:17:02.429Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T20:17:02.446Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/holeinthewall-13f6a:testIamPermissions [none]
+[debug] [2026-10-07T20:17:02.447Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/holeinthewall-13f6a:testIamPermissions  x-goog-user-project=holeinthewall-13f6a
+[debug] [2026-10-07T20:17:02.447Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/holeinthewall-13f6a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-10-07T20:17:02.460Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-10-07T20:17:02.461Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2026-10-07T20:17:02.697Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/holeinthewall-13f6a:testIamPermissions 200
+[debug] [2026-10-07T20:17:02.697Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/holeinthewall-13f6a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-10-07T20:17:02.699Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:02.699Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:02.699Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/holeinthewall-13f6a [none]
+[debug] [2026-10-07T20:17:03.174Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/holeinthewall-13f6a 200
+[debug] [2026-10-07T20:17:03.174Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/holeinthewall-13f6a {"projectId":"holeinthewall-13f6a","projectNumber":"371380584579","displayName":"HoleInTheWall","name":"projects/holeinthewall-13f6a","resources":{"hostingSite":"holeinthewall-13f6a"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_96e8a285-3ca1-42ab-8bb0-5ba65fc45d20"}
+[info] 
+[info] === Deploying to 'holeinthewall-13f6a'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-10-07T20:17:03.181Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:03.181Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:03.182Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/holeinthewall-13f6a/sites/holeinthewall-13f6a [none]
+[debug] [2026-10-07T20:17:03.782Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/holeinthewall-13f6a/sites/holeinthewall-13f6a 200
+[debug] [2026-10-07T20:17:03.784Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/holeinthewall-13f6a/sites/holeinthewall-13f6a {"name":"projects/holeinthewall-13f6a/sites/holeinthewall-13f6a","defaultUrl":"https://holeinthewall-13f6a.web.app","type":"DEFAULT_SITE"}
+[debug] [2026-10-07T20:17:03.786Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:03.786Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:03.787Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions [none]
+[debug] [2026-10-07T20:17:03.787Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-10-07T20:17:04.914Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions 200
+[debug] [2026-10-07T20:17:04.914Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions {"name":"projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[holeinthewall-13f6a]: beginning deploy... 
+[info] i  hosting[holeinthewall-13f6a]: found 3 files in src 
+[debug] [2026-10-07T20:17:04.944Z] [hosting] uploading with 200 concurrency
+[debug] [2026-10-07T20:17:04.945Z] [hosting] hash cache [c3Jj] not populated
+[debug] [2026-10-07T20:17:04.962Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:04.963Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:04.966Z] [hosting] hash cache [c3Jj] stored for 3 files
+[debug] [2026-10-07T20:17:04.966Z] [hosting][hash queue][FINAL] {"max":14,"min":9,"avg":12,"active":0,"complete":3,"success":3,"errored":0,"retried":0,"total":3,"elapsed":20}
+[debug] [2026-10-07T20:17:04.966Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54:populateFiles [none]
+[debug] [2026-10-07T20:17:04.967Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54:populateFiles {"files":{"/css/styles.css":"23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff","/index.html":"a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753","/js/leaflet.js":"9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41"}}
+[debug] [2026-10-07T20:17:05.323Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54:populateFiles 200
+[debug] [2026-10-07T20:17:05.324Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54:populateFiles {"uploadRequiredHashes":["9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41","23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff","a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files"}
+[debug] [2026-10-07T20:17:05.325Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.325Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.326Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.326Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.326Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.326Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:05.327Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41 [none]
+[debug] [2026-10-07T20:17:05.327Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41 [stream]
+[debug] [2026-10-07T20:17:05.330Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff [none]
+[debug] [2026-10-07T20:17:05.330Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff [stream]
+[debug] [2026-10-07T20:17:05.332Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753 [none]
+[debug] [2026-10-07T20:17:05.332Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753 [stream]
+[debug] [2026-10-07T20:17:05.337Z] [hosting][populate queue][FINAL] {"max":365,"min":365,"avg":365,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":375}
+[debug] [2026-10-07T20:17:05.338Z] [hosting] uploads queued: 3
+[debug] [2026-10-07T20:17:06.246Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff 200
+[debug] [2026-10-07T20:17:06.247Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/23360ba8d728961783c58175cc27c7519a7afb48a7f0cb5ca825029535ed37ff [stream]
+[debug] [2026-10-07T20:17:06.248Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753 200
+[debug] [2026-10-07T20:17:06.248Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/a4879da65a5ad300a8347817a01d65b8d078d5d3b5746743af7afeeace8aa753 [stream]
+[debug] [2026-10-07T20:17:06.300Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41 200
+[debug] [2026-10-07T20:17:06.300Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/holeinthewall-13f6a/versions/050b7acead041a54/files/9416ea2fa34bb354b731918115a6193c7e41cdcebb035c508418f7c3a6a03a41 [stream]
+[debug] [2026-10-07T20:17:06.300Z] [hosting][upload queue][FINAL] {"max":976,"min":921,"avg":939.6666666666666,"active":0,"complete":3,"success":3,"errored":0,"retried":0,"total":3,"elapsed":976}
+[info] i  hosting: upload complete 
+[info] +  hosting[holeinthewall-13f6a]: file upload complete 
+[debug] [2026-10-07T20:17:06.301Z] [hosting] deploy completed after 1382ms
+[debug] [2026-10-07T20:17:06.301Z] [
+  {
+    "config": {
+      "public": "src",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "cleanUrls": true,
+      "site": "holeinthewall-13f6a"
+    },
+    "version": "projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54"
+  }
+]
+[info] i  hosting[holeinthewall-13f6a]: finalizing version... 
+[debug] [2026-10-07T20:17:06.302Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:06.302Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:06.302Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions/050b7acead041a54 updateMask=status%2Cconfig
+[debug] [2026-10-07T20:17:06.302Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions/050b7acead041a54 {"status":"FINALIZED","config":{"cleanUrls":true}}
+[debug] [2026-10-07T20:17:06.609Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions/050b7acead041a54 200
+[debug] [2026-10-07T20:17:06.609Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/versions/050b7acead041a54 {"name":"projects/371380584579/sites/holeinthewall-13f6a/versions/050b7acead041a54","status":"FINALIZED","config":{"cleanUrls":true},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-10-07T20:17:03.951810Z","createUser":{"email":"bostonwyatt1@gmail.com"},"finalizeTime":"2026-10-07T20:17:06.550909Z","finalizeUser":{"email":"bostonwyatt1@gmail.com"}}
+[debug] [2026-10-07T20:17:06.610Z] [hosting] finalized version for holeinthewall-13f6a:[object Object]
+[info] +  hosting[holeinthewall-13f6a]: version finalized 
+[info] i  hosting[holeinthewall-13f6a]: releasing new version... 
+[debug] [2026-10-07T20:17:06.611Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:06.611Z] Checked if tokens are valid: true, expires at: 1791407821430
+[debug] [2026-10-07T20:17:06.611Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/channels/live/releases versionName=projects%2F371380584579%2Fsites%2Fholeinthewall-13f6a%2Fversions%2F050b7acead041a54
+[debug] [2026-10-07T20:17:06.611Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/channels/live/releases {}
+[debug] [2026-10-07T20:17:06.966Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/holeinthewall-13f6a/channels/live/releases 200
