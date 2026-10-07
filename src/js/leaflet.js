@@ -4,7 +4,8 @@ const restaurants = [
   { id: 3, name: "The Grind", cuisine: "coffee", label: "Coffee, breakfast & pastries", address: "60 W Main St", rating: "4.9", distance: "0.3 mi", letter: "G", lat: 43.8234, lng: -111.7912 },
   { id: 4, name: "Taqueria La Costa", cuisine: "mexican", label: "Tacos, burritos & salsa", address: "410 S 2nd W", rating: "4.6", distance: "1.1 mi", letter: "T", lat: 43.8178, lng: -111.7982 },
   { id: 5, name: "Mama Inez", cuisine: "mexican", label: "Homestyle Mexican cooking", address: "129 N 2nd E", rating: "4.8", distance: "0.8 mi", letter: "M", lat: 43.8283, lng: -111.7881 },
-  { id: 6, name: "Bonsai", cuisine: "asian", label: "Sushi, ramen & small plates", address: "185 S 2nd W", rating: "4.7", distance: "0.9 mi", letter: "B", lat: 43.8201, lng: -111.7971 }
+  { id: 6, name: "Bonsai", cuisine: "asian", label: "Sushi, ramen & small plates", address: "185 S 2nd W", rating: "4.7", distance: "0.9 mi", letter: "B", lat: 43.8201, lng: -111.7971 },
+  { id: 7, name: "Chipotle", cuisine: "mexican", label: "Burrito", address: "1048 Tamana Dr, Rexburg, ID 83440", rating: "3.7", distance: "0.9 mi", letter: "C", lat: 43.8042207, lng: -111.8065222 }
 ];
 
 const map = L.map("map", { zoomControl: false }).setView([43.8231, -111.7924], 14);
