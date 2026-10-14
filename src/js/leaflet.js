@@ -10,10 +10,38 @@ const restaurants = [
 
 const map = L.map("map", { zoomControl: false }).setView([43.8231, -111.7924], 14);
 L.control.zoom({ position: "bottomright" }).addTo(map);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+const lightTiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
   maxZoom: 19
-}).addTo(map);
+});
+const darkTiles = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+  attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>",
+  maxZoom: 19
+});
+
+const themeButton = document.querySelector("#themeButton");
+const savedTheme = localStorage.getItem("rexburg-bites-theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+let isDarkMode = savedTheme ? savedTheme === "dark" : prefersDark;
+
+function applyTheme() {
+  document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
+  themeButton.setAttribute("aria-label", isDarkMode ? "Switch to light mode" : "Switch to dark mode");
+  themeButton.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
+  themeButton.querySelector(".theme-icon").textContent = isDarkMode ? "\\u2600" : "\\u263E";
+  themeButton.querySelector(".theme-label").textContent = isDarkMode ? "Light mode" : "Dark mode";
+  const activeTiles = isDarkMode ? darkTiles : lightTiles;
+  const inactiveTiles = isDarkMode ? lightTiles : darkTiles;
+  if (map.hasLayer(inactiveTiles)) map.removeLayer(inactiveTiles);
+  if (!map.hasLayer(activeTiles)) activeTiles.addTo(map);
+}
+
+themeButton.addEventListener("click", () => {
+  isDarkMode = !isDarkMode;
+  localStorage.setItem("rexburg-bites-theme", isDarkMode ? "dark" : "light");
+  applyTheme();
+});
+applyTheme();
 
 const markerLayer = L.layerGroup().addTo(map);
 const markerById = new Map();
