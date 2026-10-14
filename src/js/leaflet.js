@@ -28,7 +28,7 @@ function applyTheme() {
   document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
   themeButton.setAttribute("aria-label", isDarkMode ? "Switch to light mode" : "Switch to dark mode");
   themeButton.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
-  themeButton.querySelector(".theme-icon").textContent = isDarkMode ? "\\u2600" : "\\u263E";
+  themeButton.querySelector(".theme-icon").textContent = isDarkMode ? "☀" : "☾";
   themeButton.querySelector(".theme-label").textContent = isDarkMode ? "Light mode" : "Dark mode";
   const activeTiles = isDarkMode ? darkTiles : lightTiles;
   const inactiveTiles = isDarkMode ? lightTiles : darkTiles;
