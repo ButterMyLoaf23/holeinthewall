@@ -27,6 +27,7 @@ let isDarkMode = savedTheme ? savedTheme === "dark" : prefersDark;
 function applyTheme() {
   document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
   themeButton.setAttribute("aria-label", isDarkMode ? "Switch to light mode" : "Switch to dark mode");
+  themeButton.setAttribute("aria-pressed", String(isDarkMode));
   themeButton.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
   themeButton.querySelector(".theme-icon").textContent = isDarkMode ? "☀" : "☾";
   themeButton.querySelector(".theme-label").textContent = isDarkMode ? "Light mode" : "Dark mode";
