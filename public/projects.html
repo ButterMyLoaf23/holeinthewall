@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/styles.css">
+  <title>Your Portfolio</title>
+  <script src="config.js"></script>
+  <script type="module" defer>
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js';
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    // const analytics = getAnalytics(app);
+
+    //   Analytics tags if desired
+    //   gtag('config', 'GA_MEASUREMENT_ID', {
+    //   cookie_domain: 'yourappname.web.app',
+    //   cookie_flags: 'SameSite=None;Secure',
+    // });
+    document.getElementById('addProjectForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+
+      // Add the project to Firestore
+      try {
+        const docRef = await addDoc(collection(db, 'projects'), {
+          title: title,
+          description: description
+        });
+        console.log('Project added with ID: ', docRef.id);
+        alert('Project added successfully!');
+        fetchProjects();
+      } catch (error) {
+        console.error('Error adding project: ', error);
+        alert('Error adding project. Please check the console for details.');
+      }
+    });
+
+    // View Projects List
+    const projectsList = document.getElementById('projectsList');
+
+    // Fetch projects from Firestore after initialization
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'projects'));
+        projectsList.innerHTML = ''; // Clear existing list before populating
+        querySnapshot.forEach((doc) => {
+          const project = doc.data();
+          const listItem = document.createElement('li');
+          listItem.textContent = `${project.title}: ${project.description}`;
+          projectsList.appendChild(listItem);
+        });
+      } catch (error) {
+        console.error('Error getting projects: ', error);
+        // alert('Error getting projects. Please try again.');
+      }
+    };
+
+    // Call fetchProjects after initialization
+    fetchProjects();
+
+  </script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="projects.html">Projects - No login</a>
+      <a href="cr.html">Create and Read</a>
+      <a href="crd.html">Create, Read, and Delete </a>
+      <a href="crud.html">Create, Read, Update, and Delete </a>
+    </nav>
+  </header>
+  <div id="projects-container">
+
+  Your project page
+  <h1>Add Project</h1>
+  <form id="addProjectForm">
+    <label for="title">Project Name:</label>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="description">Project Description:</label>
+    <textarea id="description" name="description" required></textarea><br>
+
+    <button type="submit">Add Project</button>
+  </form>
+  <h2>Projects</h2>
+  <ul id="projectsList"></ul>
+</div>
+</body>
+</html>
