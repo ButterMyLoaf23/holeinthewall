@@ -1,0 +1,17 @@
+{
+  "name": "holeinthewall-functions",
+  "private": true,
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "node --check index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.2",
+    "firebase-functions": "^6.1.1"
+  }
+}
