@@ -1,10 +1,22 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Spark-compatible public demo access. Add Firebase Authentication
-    // before using this with private or sensitive project data.
-    match /projects/{document=**} {
-      allow read, write: if request.auth == null;
+    // Project listings are intentionally public for this class demo. Writes
+    // are constrained to the exact fields and sizes used by the application.
+    // Add Firebase Authentication before using private or sensitive data.
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly([
+        'title', 'description', 'createdAt'
+      ])
+      && request.resource.data.title is string
+      && request.resource.data.title.size() > 0
+      && request.resource.data.title.size() <= 120
+      && request.resource.data.description is string
+      && request.resource.data.description.size() > 0
+      && request.resource.data.description.size() <= 2000
+      && request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
     }
   }
 }

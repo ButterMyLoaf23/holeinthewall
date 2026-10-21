@@ -2,11 +2,13 @@
   "name": "holeinthewall-functions",
   "private": true,
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "main": "index.js",
   "scripts": {
-    "lint": "node --check index.js"
+    "lint": "node --check index.js",
+    "security:audit": "npm audit --omit=dev",
+    "security:check": "npm run lint && npm run security:audit"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -15,3 +15,18 @@ From the repository root, deploy the Spark-compatible Firestore rules and hostin
 `firebase deploy --only firestore:rules,hosting`
 
 No billing upgrade is required for this command. The Firebase project is configured in `.firebaserc` as `holeinthewall-13f6a`.
+
+## Security and maintenance evidence
+
+This project includes a security hardening pass for cloud deployment:
+
+- Firestore rules allow public reads for the classroom demo, but validate project field names, types, and lengths on create. Updates and deletes are denied.
+- The optional Functions API disables the Express fingerprint, limits JSON bodies to 32 KB, validates request fields, restricts CORS to the Firebase hosting domains (plus the local emulator), and sends defensive HTTP headers.
+- Firebase Hosting sends `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy` headers.
+- Functions use the Node 22 LTS runtime declaration. The dependency lockfile is committed so deployments use reviewed versions instead of floating installs.
+
+Before deployment, run:
+
+`npm run security:check --prefix functions`
+
+The current production dependency audit returned **0 vulnerabilities** with `npm audit --omit=dev`. This is the local equivalent of a Snyk/npm audit checkpoint; a CI pipeline should run the same check and fail on high-severity findings. CVEs should be reviewed after every dependency update, and packages with a vulnerable version should be upgraded or replaced before deployment.

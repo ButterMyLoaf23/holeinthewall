@@ -8,7 +8,35 @@ admin.initializeApp();
 const db = admin.firestore();
 const api = express();
 
-api.use(cors({ origin: true }));
+api.disable("x-powered-by");
+
+const allowedOrigins = new Set(
+  (process.env.ALLOWED_ORIGINS || [
+    "https://holeinthewall-13f6a.web.app",
+    "https://holeinthewall-13f6a.firebaseapp.com",
+    "http://localhost:5000"
+  ].join(","))
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
+
+api.use((req, res, next) => {
+  res.set("X-Content-Type-Options", "nosniff");
+  res.set("Referrer-Policy", "no-referrer");
+  res.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+
+api.use(cors({
+  origin: (origin, callback) => {
+    // Requests without an Origin header include same-origin and server-side calls.
+    if (!origin || allowedOrigins.has(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Origin is not allowed."));
+  }
+}));
 api.use(express.json({ limit: "32kb" }));
 
 api.get("/projects", async (_req, res) => {
@@ -24,6 +52,15 @@ api.get("/projects", async (_req, res) => {
 });
 
 api.post("/projects", async (req, res) => {
+  if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+    return res.status(400).json({ error: "Request body must be a JSON object." });
+  }
+
+  const submittedFields = Object.keys(req.body);
+  if (submittedFields.some((field) => !["title", "description"].includes(field))) {
+    return res.status(400).json({ error: "Only title and description are accepted." });
+  }
+
   const title = typeof req.body.title === "string" ? req.body.title.trim() : "";
   const description = typeof req.body.description === "string" ? req.body.description.trim() : "";
 
@@ -43,6 +80,17 @@ api.post("/projects", async (req, res) => {
     logger.error("Unable to create project", error);
     res.status(500).json({ error: "Unable to save the project." });
   }
+});
+
+api.use((error, _req, res, _next) => {
+  if (error instanceof SyntaxError && "body" in error) {
+    return res.status(400).json({ error: "Request body must contain valid JSON." });
+  }
+  if (error.message === "Origin is not allowed.") {
+    return res.status(403).json({ error: "Request origin is not allowed." });
+  }
+  logger.error("Unhandled API error", error);
+  return res.status(500).json({ error: "Unexpected server error." });
 });
 
 exports.api = onRequest({ region: "us-central1" }, api);
