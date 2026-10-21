@@ -30,3 +30,15 @@ Before deployment, run:
 `npm run security:check --prefix functions`
 
 The current production dependency audit returned **0 vulnerabilities** with `npm audit --omit=dev`. This is the local equivalent of a Snyk/npm audit checkpoint; a CI pipeline should run the same check and fail on high-severity findings. CVEs should be reviewed after every dependency update, and packages with a vulnerable version should be upgraded or replaced before deployment.
+
+## Accounts and protected restaurant data
+
+The home page now uses Firebase Authentication with email/password accounts. The map tiles remain public, and a small `restaurantPreviews` collection provides a few non-sensitive sample markers to logged-out visitors. The full restaurant cards and marker coordinates are loaded only after Firebase reports an authenticated user. Firestore rules enforce the boundary with `allow read: if request.auth != null` for the `restaurants` collection, while browser writes are denied for both collections.
+
+Before using accounts, enable **Authentication > Sign-in method > Email/Password** in the Firebase console. To populate the protected restaurant collection, run the Admin SDK seed script from an environment with Google Application Default Credentials or a service-account credential:
+
+`npm run seed:restaurants --prefix functions`
+
+The seed command populates both the private full collection and the three-marker public preview collection.
+
+Do not place service-account keys in this repository. The seed script is intentionally separate from the browser code so restaurant data cannot be modified by ordinary users.
