@@ -84,13 +84,13 @@ function render() {
   emptyState.hidden = visible.length !== 0;
   list.innerHTML = visible.map((restaurant) => `
     <article class="restaurant-card" data-id="${restaurant.id}" tabindex="0">
-      <div class="restaurant-image" aria-hidden="true">${restaurant.letter}</div>
+    <div class="restaurant-image" aria-hidden="true">${escapeHtml(restaurant.letter)}</div>
       <div class="card-info">
-        <h3>${restaurant.name}</h3>
-        <p class="card-meta">${restaurant.label}</p>
-        <div class="card-rating"><span class="star">&#9733;</span> ${restaurant.rating}<span class="distance">${restaurant.distance}</span></div>
+        <h3>${escapeHtml(restaurant.name)}</h3>
+        <p class="card-meta">${escapeHtml(restaurant.label)}</p>
+        <div class="card-rating"><span class="star">&#9733;</span> ${escapeHtml(restaurant.rating)}<span class="distance">${escapeHtml(restaurant.distance)}</span></div>
       </div>
-      <button class="favorite-button ${favorites.has(restaurant.id) ? "is-favorite" : ""}" type="button" data-favorite="${restaurant.id}" aria-label="${favorites.has(restaurant.id) ? "Remove" : "Add"} ${restaurant.name} ${favorites.has(restaurant.id) ? "from" : "to"} favorites">${favorites.has(restaurant.id) ? "&#9829;" : "&#9825;"}</button>
+      <button class="favorite-button ${favorites.has(restaurant.id) ? "is-favorite" : ""}" type="button" data-favorite="${restaurant.id}" aria-label="${favorites.has(restaurant.id) ? "Remove" : "Add"} ${escapeHtml(restaurant.name)} ${favorites.has(restaurant.id) ? "from" : "to"} favorites">${favorites.has(restaurant.id) ? "&#9829;" : "&#9825;"}</button>
     </article>
   `).join("");
   markerLayer.clearLayers();
