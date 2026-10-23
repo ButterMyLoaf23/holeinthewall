@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/styles/styles.css">
     <title>Your Portfolio</title>
-    <script src="config.js" defer></script>
+    <script src="public/config.js" defer></script>
     <script type="module" defer>
         // NOTICE HOW WE UPGRADED FROM 10.7.2 to 10.9.0 = security updates sometimes
         // CRUD = Create, Read, Update, Delete
@@ -93,10 +93,8 @@
 
                 updateUserProfile(user);
             } catch (error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                console.error(errorCode, errorMessage, credential);
+                signOutMessage.innerText = `Google login failed: ${error.code || error.message}`;
+                console.error("Google login failed", error);
             }
         }
 
