@@ -1,35 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Project listings are intentionally public for this class demo. Writes
-    // are constrained to the exact fields and sizes used by the application.
-    // Add Firebase Authentication before using private or sensitive data.
-    match /projects/{projectId} {
-      allow read: if true;
-      allow create: if request.resource.data.keys().hasOnly([
-        'title', 'description', 'createdAt'
-      ])
-      && request.resource.data.title is string
-      && request.resource.data.title.size() > 0
-      && request.resource.data.title.size() <= 120
-      && request.resource.data.description is string
-      && request.resource.data.description.size() > 0
-      && request.resource.data.description.size() <= 2000
-      && request.resource.data.createdAt is timestamp;
-      allow update, delete: if false;
-    }
-
-    // Restaurant coordinates and details are private to authenticated users.
-    // Seed or maintain this collection with an Admin SDK process.
-    match /restaurants/{restaurantId} {
-      allow read: if request.auth != null;
-      allow write: if false;
-    }
-
-    // A small, non-sensitive sample is visible to logged-out visitors.
-    match /restaurantPreviews/{restaurantId} {
-      allow read: if true;
-      allow write: if false;
+    match /projects/{document=**} {
+      allow read, write: if request.auth != null;
     }
   }
 }

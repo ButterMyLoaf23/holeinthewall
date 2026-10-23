@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Your Portfolio</title>
+    <script src="config.js" defer></script>
+    <script type="module" defer>
+        // Talk about the json.stringify and console logs below for SECURITY - remove the stringfy and console
+        // https://pragmaticwebsecurity.com/articles/spasecurity/json-stringify-xss
+        // CRUD = Create, Read, Update, Delete
+        // This page allows CRUD = Create, Read, Update, and Delete
+        // Add a rick roll: https://blog.packetninjas.com/xss-and-rickrolling 
+        // Paste this in the add project field and see an security XSS vulnerability:
+        // <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        // Or paste this:
+        //<h2>JavaScript</h2>
+        //<p>Line-breaks in a popup box.</p>
+        //<button onclick="alert('Hello\nHow are you?')">Try it</button>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        //import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        //const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth(app);
+        auth.language = 'en';
+        const user = auth.currentUser;
+        const googleLogout = document.getElementById("google-logout-btn");
+        const signOutMessage = document.getElementById("sign-out-message");
+
+        googleLogout.addEventListener("click", handleSignOut);
+        const googleLogin = document.getElementById("google-login-btn");
+        googleLogin.addEventListener("click", handleSignIn);
+        // Listen for changes in the user's authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, update the user profile
+                updateUserProfile(user);
+                // Fetch projects after the user logs in
+                fetchProjects();
+                signOutMessage.innerText = '';
+                document.getElementById('google-logout-btn').style.display = 'block';
+                document.getElementById('google-login-btn').style.display = 'none';
+                document.getElementById('userProfilePicture').style.display = 'block';
+            } else {
+                // No user is signed in, clear the projects list
+                document.getElementById('google-logout-btn').style.display = 'none';
+                document.getElementById('google-login-btn').style.display = 'block';
+                document.getElementById('userProfilePicture').style.display = 'none';
+                projectsList.innerHTML = '';
+                clearUserInfo();
+                displayLoginMessage();
+                console.log("No user signed in");
+            }
+        });
+        async function handleSignOut() {
+            try {
+                await signOut(auth);
+                // Clear the projects list on sign out
+                projectsList.innerHTML = '';
+                clearUserInfo();
+                displayLoginMessage();
+                signOutMessage.innerText = "You have been successfully signed out.";
+            } catch (error) {
+                signOutMessage.innerText = "An error occurred during sign-out.";
+                console.error(error);
+            }
+        }
+        function displayLoginMessage() {
+            // Display a message prompting the user to log in
+            signOutMessage.innerText = "Please log in to access your projects.";
+        }
+        function clearUserInfo() {
+            // Clear user information
+            document.getElementById("userName").textContent = '';
+            document.getElementById("userEmail").textContent = '';
+            document.getElementById("userProfilePicture").src = '';
+        }
+        async function handleSignIn() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                updateUserProfile(user);
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                console.error(errorCode, errorMessage, credential);
+            }
+        }
+        function updateUserProfile(user) {
+            const userName = user.displayName;
+            const userEmail = user.email;
+            const userProfilePicture = user.photoURL;
+            document.getElementById("userName").textContent = userName;
+            document.getElementById("userEmail").textContent = userEmail;
+            document.getElementById("userProfilePicture").src = userProfilePicture;
+        }
+        //   Add Google Analytics
+        //   gtag('config', 'GA_MEASUREMENT_ID', {
+        //   cookie_domain: 'yourappname.web.app',
+        //   cookie_flags: 'SameSite=None;Secure',
+        // });
+        // Declare variables outside the event listener
+        const titleInput = document.getElementById('title');
+        const descriptionInput = document.getElementById('description');
+
+        // Add the project to Firestore
+        async function addProject(title, description) {
+            try {
+                const docRef = await addDoc(collection(db, 'projects'), {
+                    title,
+                    description
+                });
+                // console.log('Project added with ID: ', docRef.id);
+                // alert('Project added successfully!');
+                // Reset the input values
+                titleInput.value = '';
+                descriptionInput.value = '';
+                fetchProjects();
+            } catch (error) {
+                console.error('Error adding project: ', error);
+                alert('Error adding project. Please check the console for details.');
+            }
+        }
+
+        document.getElementById('addProjectForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            await addProject(title, description);
+        });
+
+        // Function to delete a project
+        window.deleteProject = async function (projectId) {
+            try {
+                await deleteDoc(doc(db, 'projects', projectId));
+                console.log('Project deleted successfully!');
+                fetchProjects(); // Fetch projects again after deletion
+            } catch (error) {
+                console.error('Error deleting project: ', error);
+                alert('Error deleting project. Please check the console for details.');
+            }
+        };
+        // View Projects List
+        const projectsList = document.getElementById('projectsList');
+        const projectsContainer = document.getElementById('projects-container');
+
+        // Fetch projects from Firestore after initialization
+        const fetchProjects = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'projects'));
+                const projects = [];
+                querySnapshot.forEach((doc) => {
+                    const project = doc.data();
+                    project.id = doc.id;
+                    projects.push(project);
+                });
+                renderProjectsList(projects);
+            } catch (error) {
+                console.error('Error getting projects: ', error);
+                // Handle the error gracefully (e.g., show an error message on the page)
+            }
+        };
+
+        // Call fetchProjects after initialization
+        fetchProjects();
+
+        // Add event listener to handle project deletion
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Fetch projects and render the list
+                await fetchProjects();
+                // Add event listeners for project deletion
+                const deleteButtons = document.querySelectorAll('.delete-project-btn');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const projectId = button.parentNode.id; // Get the parent node's ID
+                        await deleteProject(projectId);
+                    });
+                });
+            } catch (error) {
+                console.error('Error fetching and rendering projects: ', error);
+                // Handle the error gracefully
+            }
+        });
+
+        // Function to render projects list with edit buttons
+        function renderProjectsList(projects) {
+            const projectItems = projects.map(project => {
+                const projectId = project.id;
+                return `
+                    <li id="${projectId}">
+                        ${project.title}: ${project.description}
+                        <button class="delete-project-btn" onclick="deleteProject('${projectId}')">Delete</button>
+                        <button class="edit-project-btn" onclick="editProject('${projectId}', '${project.title}', '${project.description}')">Edit</button>
+                    </li>
+                `;
+            });
+            projectsList.innerHTML = projectItems.join('');
+        }
+
+        // Add event listener to handle project editing
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Add event listeners for project editing
+                const editButtons = document.querySelectorAll('.edit-project-btn');
+                editButtons.forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const projectId = button.parentNode.id; // Get the parent node's ID
+                        const project = await getProjectFromFirestore(projectId);
+                        editProject(projectId, project.title, project.description);
+                    });
+                });
+            } catch (error) {
+                console.error('Error adding edit event listeners: ', error);
+                // Handle the error gracefully
+            }
+        });
+
+        // Function to handle project editing
+        window.editProject = function (projectId, title, description) {
+            document.getElementById('editProjectId').value = projectId;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editDescription').value = description;
+            document.getElementById('editProjectFormContainer').style.display = 'block';
+            document.getElementById('addProjectForm').style.display = 'none';
+        };
+
+        // Function to cancel the edit and hide the form
+        window.cancelEdit = function () {
+            document.getElementById('editProjectFormContainer').style.display = 'none';
+            document.getElementById('addProjectForm').style.display = 'block';
+        };
+        async function updateProjectInFirestore(projectId, updatedData) {
+            try {
+                console.log('Project modifing now!' + projectId + ' updateddata: ' + JSON.stringify(updatedData));
+                const projectRef = doc(db, 'projects', projectId);
+                //console.log('Project modifing db!' + JSON.stringify(db));
+                //console.log('Project modifing projectref!' +  'projectref: ' + JSON.stringify(projectRef));
+                await updateDoc(projectRef, updatedData);
+                //console.log('Project updated in Firestore:', projectId);
+            } catch (error) {
+                console.error('Error updating project in Firestore:', error);
+                throw error;
+            }
+            document.getElementById('addProjectForm').style.display = 'block';
+        }
+
+        // Function to update a project
+        window.updateProject = async function () {
+            event.preventDefault();
+            const projectId = document.getElementById('editProjectId').value;
+            const title = document.getElementById('editTitle').value;
+            const description = document.getElementById('editDescription').value;
+            try {
+                console.log('Project update with title:' + title + ' pid; ' + projectId + ' descrip: ' + description);
+                await updateProjectInFirestore(projectId, { title, description });
+                fetchProjects(); // Fetch projects again after updating
+                cancelEdit(); // Hide the edit form
+            } catch (error) {
+                console.error('Error updating project: ', error);
+                alert('Error updating project. Please check the console for details.');
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <header>
+        <span id="menu-icon" class="menu-icon">&#9776; Menu</span>
+        <nav class="show">
+            <img id="logoimg" src="logo.png" alt="firebase logo">
+            <a href="projects.html">Projects - No login</a>
+            <a href="cr.html">Create and Read</a>
+            <a href="crd.html">Create, Read, and Delete </a>
+            <a href="crud.html">Create, Read, Update, and Delete </a>
+        </nav>
+        <div id="login-logout">
+            <div class="input">
+                <button id="google-login-btn" class="google-button" style="display: none;">
+                    <i class="fab fa-google"></i> Google Login
+                </button>
+            </div>
+            <div class="input">
+                <button id="google-logout-btn" class="google-button" style="display: none;">
+                    <i class="fab fa-google"></i> Google Logout
+                </button>
+            </div>
+            <div>
+                <img id="userProfilePicture" alt="profile pic from Google" style="display: none;">
+            </div>
+        </div>
+
+    </header>
+    <p id="sign-out-message"></p>
+
+    <h1>Your project page</h1>
+    <span id="authspan">Authenticated as:
+        <span id="userName"></span>
+        <span id="userEmail"></span>
+    </span>
+            <!-- Add Project Edit Form -->
+            <div id="projects-container">
+
+                <div id="editProjectFormContainer" style="display: none;">
+                    <h2>Edit Project</h2>
+                    <form id="editProjectForm">
+                        <input type="hidden" id="editProjectId" name="editProjectId">
+                        <label for="editTitle">Project Name:</label>
+                        <input type="text" id="editTitle" name="editTitle" required><br>
+                        <label for="editDescription">Project Description:</label>
+                        <textarea id="editDescription" name="editDescription" required></textarea><br>
+                        <button type="submit" onclick="updateProject()">Update (Save)</button>
+                        <button type="button" onclick="cancelEdit()">Cancel</button>
+                    </form>
+                </div>
+                <h2>Add Project</h2>
+                <form id="addProjectForm">
+                    <label for="title">Project Name:</label>
+                    <input type="text" id="title" name="title" required><br>
+                    <label for="description">Project Description:</label>
+                    <textarea id="description" name="description" required></textarea><br>
+                    <button type="submit">Add Project</button>
+                </form>
+                <h2>Projects</h2>
+                <ul id="projectsList"></ul>
+            </div>
+            <!-- Footer with dynamically calculated copyright year using JavaScript -->
+            <footer>
+                &copy; Your Name | <span id="currentYear"></span>
+            </footer>
+
+            <script>
+                // JavaScript code to dynamically update the copyright year
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+                // JavaScript to toggle the mobile navigation menu
+                document.addEventListener('DOMContentLoaded', function () {
+                    var menuIcon = document.getElementById('menu-icon');
+                    var navMenu = document.querySelector('nav');
+                    menuIcon.addEventListener('click', function () {
+                        navMenu.style.display = (navMenu.style.display === 'flex') ? 'none' : 'flex';
+                    });
+                });
+            </script>
+
+</body>
+
+</html>
