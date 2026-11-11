@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Rexburg Bites account and saved restaurant favorites.">
+  <title>Your account | Rexburg Bites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="account-page">
+  <a class="skip-link" href="#account-main">Skip to account content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Rexburg Bites home"><span class="brand-mark" aria-hidden="true">RB</span><span>rexburg<span class="brand-accent">bites</span></span></a>
+    <div class="header-actions">
+      <button class="theme-button" type="button" id="themeButton" aria-label="Switch to dark mode" aria-pressed="false"><span aria-hidden="true" class="theme-icon">☾</span><span class="theme-label">Dark mode</span></button>
+      <a class="back-link" href="index.html">Explore restaurants</a>
+      <button class="account-button" type="button" id="signOutButton">Sign out</button>
+    </div>
+  </header>
+  <main class="account-main" id="account-main">
+    <section class="account-hero" aria-labelledby="accountTitle">
+      <p class="eyebrow">Your account</p>
+      <h1 id="accountTitle">Good choices, saved.</h1>
+      <p class="account-email" id="accountEmail">Loading account…</p>
+    </section>
+    <section class="favorites-section" aria-labelledby="favoritesTitle">
+      <div class="section-heading"><div><p class="eyebrow">Your shortlist</p><h2 id="favoritesTitle"><span id="favoriteCount">0</span> favorite spots</h2></div><a class="primary-link" href="index.html#explore">Find more places</a></div>
+      <div class="saved-list" id="savedList" aria-live="polite"></div>
+      <p class="empty-state account-empty" id="emptyFavorites">You have not saved any restaurants yet. Explore the map and tap the heart on a spot you love.</p>
+    </section>
+  </main>
+  <div class="sr-only" id="accountStatus" role="status" aria-live="polite"></div>
+  <script src="public/config.js"></script>
+  <script type="module" src="js/account.js"></script>
+</body>
+</html>

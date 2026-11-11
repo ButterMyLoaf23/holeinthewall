@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
 
 const app = initializeApp(firebaseConfig);
@@ -49,6 +49,22 @@ let activeFilter = "all";
 let searchTerm = "";
 let sortDescending = true;
 const favorites = new Set();
+let favoritesStorageKey = "";
+
+function loadSavedFavorites(user) {
+  favorites.clear();
+  favoritesStorageKey = user ? `rexburg-bites-favorites:${user.uid}` : "";
+  if (!favoritesStorageKey) return;
+  try {
+    JSON.parse(localStorage.getItem(favoritesStorageKey) || "[]").forEach((id) => favorites.add(String(id)));
+  } catch (error) {
+    console.warn("Unable to load saved favorites", error);
+  }
+}
+
+function saveFavorites() {
+  if (favoritesStorageKey) localStorage.setItem(favoritesStorageKey, JSON.stringify([...favorites]));
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
@@ -83,7 +99,7 @@ function render() {
   document.querySelector("#resultCount").textContent = visible.length;
   emptyState.hidden = visible.length !== 0;
   list.innerHTML = visible.map((restaurant) => `
-    <article class="restaurant-card" data-id="${restaurant.id}" tabindex="0">
+    <article class="restaurant-card" data-id="${restaurant.id}" tabindex="0" role="button" aria-label="View ${escapeHtml(restaurant.name)} on the map">
     <div class="restaurant-image" aria-hidden="true">${escapeHtml(restaurant.letter)}</div>
       <div class="card-info">
         <h3>${escapeHtml(restaurant.name)}</h3>
@@ -96,20 +112,22 @@ function render() {
   markerLayer.clearLayers();
   visible.forEach((restaurant) => markerLayer.addLayer(markerById.get(restaurant.id)));
   list.querySelectorAll(".restaurant-card").forEach((card) => {
-    card.addEventListener("click", () => selectCard(Number(card.dataset.id)));
-    card.addEventListener("keydown", (event) => { if (event.key === "Enter") selectCard(Number(card.dataset.id)); });
+    card.addEventListener("click", () => selectCard(card.dataset.id));
+    card.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectCard(card.dataset.id); } });
   });
   list.querySelectorAll("[data-favorite]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
-    const id = Number(button.dataset.favorite);
+    const id = String(button.dataset.favorite);
     favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+    saveFavorites();
     document.querySelector(".favorite-count").textContent = favorites.size;
+    document.querySelector("#statusMessage").textContent = favorites.has(id) ? "Added to your favorites." : "Removed from favorites.";
     render();
   }));
 }
 
 function selectCard(id) {
-  document.querySelectorAll(".restaurant-card").forEach((card) => card.classList.toggle("is-selected", Number(card.dataset.id) === id));
+  document.querySelectorAll(".restaurant-card").forEach((card) => card.classList.toggle("is-selected", card.dataset.id === String(id)));
   const restaurant = restaurants.find((item) => item.id === id);
   if (!restaurant || !markerById.has(id)) return;
   map.flyTo([restaurant.lat, restaurant.lng], 16, { duration: 0.6 });
@@ -134,46 +152,10 @@ document.querySelector("#locateButton").addEventListener("click", () => map.flyT
 document.querySelector("#shareButton").addEventListener("click", async () => {
   const shareData = { title: "Rexburg Bites", text: "Find your next favorite restaurant in Rexburg.", url: window.location.href };
   if (navigator.share) await navigator.share(shareData);
-  else await navigator.clipboard.writeText(window.location.href);
+  else { await navigator.clipboard.writeText(window.location.href); document.querySelector("#statusMessage").textContent = "Link copied to your clipboard."; }
 });
 
-const authPanel = document.querySelector("#authPanel");
-const authForm = document.querySelector("#authForm");
 const authButton = document.querySelector("#accountButton");
-const authToggle = document.querySelector("#authToggle");
-const authSubmit = document.querySelector("#authSubmit");
-const authTitle = document.querySelector("#authTitle");
-const authMessage = document.querySelector("#authMessage");
-let registering = false;
-
-authButton.addEventListener("click", () => {
-  authPanel.hidden = !authPanel.hidden;
-  if (!authPanel.hidden) document.querySelector("#authEmail").focus();
-});
-
-authToggle.addEventListener("click", () => {
-  registering = !registering;
-  authTitle.textContent = registering ? "Create an account to view restaurant spots" : "Sign in to view restaurant spots";
-  authSubmit.textContent = registering ? "Register" : "Sign in";
-  authToggle.textContent = registering ? "Already have an account? Sign in" : "Need an account? Register";
-  document.querySelector("#authPassword").setAttribute("autocomplete", registering ? "new-password" : "current-password");
-  authMessage.textContent = "";
-});
-
-authForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  authMessage.textContent = "";
-  const email = document.querySelector("#authEmail").value.trim();
-  const password = document.querySelector("#authPassword").value;
-  try {
-    if (registering) await createUserWithEmailAndPassword(auth, email, password);
-    else await signInWithEmailAndPassword(auth, email, password);
-    authForm.reset();
-  } catch (error) {
-    authMessage.textContent = error.code === "auth/email-already-in-use" ? "An account already exists for that email." : "Unable to authenticate. Check your email and password.";
-  }
-});
-
 async function loadRestaurants(user) {
   markerLayer.clearLayers();
   markerById.clear();
@@ -183,23 +165,25 @@ async function loadRestaurants(user) {
     restaurants = snapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
     restaurants.forEach((restaurant) => createMarker(restaurant));
     render();
-    document.querySelector("#authDescription").textContent = user
+    document.querySelector("#statusMessage").textContent = user
       ? "You are viewing the full restaurant guide and private marker details."
       : "This preview shows a few public markers. Sign in to unlock the full restaurant guide.";
   } catch (error) {
-    authMessage.textContent = user ? "Your account is signed in, but restaurant data could not be loaded." : "Preview markers could not be loaded.";
+    document.querySelector("#statusMessage").textContent = user ? "Your account is signed in, but restaurant data could not be loaded." : "Preview markers could not be loaded.";
     console.error("Unable to load restaurant data", error);
   }
 }
 
 onAuthStateChanged(auth, async (user) => {
   authButton.textContent = user ? "Sign out" : "Sign in";
-  authPanel.hidden = Boolean(user);
+  const accountLink = document.querySelector("#accountLink");
+  accountLink.hidden = !user;
+  loadSavedFavorites(user);
+  document.querySelector(".favorite-count").textContent = favorites.size;
   if (user) {
-    authMessage.textContent = `Signed in as ${user.email}`;
     authButton.onclick = () => signOut(auth);
   } else {
-    authButton.onclick = () => { authPanel.hidden = false; document.querySelector("#authEmail").focus(); };
+    authButton.onclick = () => { window.location.href = "auth.html"; };
   }
   await loadRestaurants(user);
 });
